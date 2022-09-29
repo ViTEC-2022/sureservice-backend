@@ -1,4 +1,4 @@
-package com.sureservice.backend;
+package com.sureservice.backend.cucumber;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -7,8 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         plugin={"pretty","json:target/cucumber.json"},
-        glue={"cucumber"},
-        features="src/test/resources/features"
+        features="classpath:features"
 )
 public class CucumberRunnerTest {
 }
