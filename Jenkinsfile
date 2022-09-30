@@ -1,5 +1,5 @@
 pipeline {
-
+   agent any
    tools {
 	maven 'MAVEN_3_8_6'
  	jdk 'JDK_1_8'
