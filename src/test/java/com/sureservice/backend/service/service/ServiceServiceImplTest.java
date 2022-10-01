@@ -58,12 +58,13 @@ public class ServiceServiceImplTest {
         assertNotNull(serviceService.create(new Service()));
     }
     /*
-        @Test
-        public void update() {
+    @Test
+    public void update() {
         Mockito.when(serviceRepository.save(Mockito.any(Service.class))).thenReturn(service);
         assertNotNull(serviceService.update(2L, new Service()));
-        }
+    }
     */
+
     @Test
     public void delete() {
         Mockito.when(serviceRepository.findById(2L)).thenReturn(Optional.of(new Service()));

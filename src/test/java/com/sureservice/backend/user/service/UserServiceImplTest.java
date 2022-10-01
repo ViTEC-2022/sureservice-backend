@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.validation.Validator;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -57,13 +58,26 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void authenticate() {
-
-    }
-
-    @Test
     public void register() {
         Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
         assertNotNull(userService.register(new RegisterRequest()));
+    }
+
+    @Test
+    public void loadUserByUsername() {
+        Mockito.when(userRepository.findByEmail("carlos@gmail.com")).thenReturn(Optional.of(new User()));
+        assertNotNull(userService.loadUserByUsername("carlos@gmail.com"));
+    }
+
+    @Test
+    public void getAll() {
+        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user));
+        assertNotNull(userService.getAll());
+    }
+
+    @Test
+    public void getById() {
+        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(new User()));
+        assertNotNull(userService.getById(1L));
     }
 }
