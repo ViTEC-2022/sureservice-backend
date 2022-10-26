@@ -13,9 +13,11 @@ pipeline {
             }
         }
 	stage('Email Notification'){
-		emailext body: 'Test Message',
-    		subject: 'Test Subject',
-    		to: 'test@example.com'    
+		steps{
+			mail bcc: '', body: '''Hello welcome to jenkins alerts!
+			Thanks
+			Patrick''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'patrickcuentasmariano@gmail.com'
+		}
 	}
         stage('Testing Stage') {
             steps {
