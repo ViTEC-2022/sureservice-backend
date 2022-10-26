@@ -12,11 +12,11 @@ pipeline {
 		}
             }
         }
-	post {
-        always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-        }
-    	}    
+	stage('Email Notification'){
+		emailext body: 'Test Message',
+    		subject: 'Test Subject',
+    		to: 'test@example.com'    
+	}
         stage('Testing Stage') {
             steps {
 		withMaven(maven : 'MAVEN_3_8_6') {
