@@ -47,5 +47,6 @@ pipeline {
                 subject:"FAILURE: ${currentBuild.fullDisplayName}",
                 body: "Test Complete Build failed."
         }
+	}
     }
 }	
