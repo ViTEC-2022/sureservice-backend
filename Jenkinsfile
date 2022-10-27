@@ -2,9 +2,8 @@ pipeline {
    agent any
    tools {
 	maven 'MAVEN_3_8_6'
- 	jdk 'JDK_17_2'
+ 	jdk 'JDK_11'
    }
-
     stages {
         stage('Compile Stage') {
             steps {
@@ -28,4 +27,19 @@ pipeline {
             }
         }
     }
+	post {
+		always {
+		    echo "Notifying build result by email"
+		}
+		success {
+		    mail to: 'patrickcuentasmariano@gmail.com',
+			 subject: "SUCCESS: ${currentBuild.fullDisplayName}",
+			 body: "Test Complete Build passed."
+		}
+		failure {
+		   mail to: 'patrickcuentasmariano@gmail.com',
+			subject:"FAILURE: ${currentBuild.fullDisplayName}",
+			body: "Test Complete Build failed."
+		}
+	}
 }	

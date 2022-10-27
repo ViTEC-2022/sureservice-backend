@@ -14,7 +14,8 @@ public class RequestResource {
     private String description;
     private String urlToImage;
     private Boolean paid;
-    private ServiceResource service;
+    private int price;
+    private Boolean confirmation;
     private ClientResource client;
     private EmployeeResource employee;
 }

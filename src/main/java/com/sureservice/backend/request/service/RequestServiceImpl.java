@@ -23,14 +23,12 @@ import java.util.Set;
 @Service
 public class RequestServiceImpl implements RequestService {
     private static final String ENTITY = "Request";
-    private final ServiceRepository serviceRepository;
     private final EmployeeRepository employeeRepository;
     private final ClientRepository clientRepository;
     private final RequestRepository requestRepository;
     private final Validator validator;
 
-    public RequestServiceImpl(ServiceRepository serviceRepository, EmployeeRepository employeeRepository, ClientRepository clientRepository, RequestRepository requestRepository, Validator validator) {
-        this.serviceRepository = serviceRepository;
+    public RequestServiceImpl(EmployeeRepository employeeRepository, ClientRepository clientRepository, RequestRepository requestRepository, Validator validator) {
         this.employeeRepository = employeeRepository;
         this.clientRepository = clientRepository;
         this.requestRepository = requestRepository;
@@ -50,7 +48,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> getAllByClientId(Long clientId) {
-        var existingClient = requestRepository.findByClientId(clientId);
+        var existingClient = clientRepository.findById(clientId);
 
         if(existingClient.isEmpty())
             throw new ResourceNotFoundException("Client", clientId);
@@ -59,13 +57,8 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Page<Request> getAllByClientId(Long clientId, Pageable pageable) {
-        return requestRepository.findByClientId(clientId, pageable);
-    }
-
-    @Override
     public List<Request> getAllByEmployeeId(Long employeeId) {
-        var existingEmployee = requestRepository.findByEmployeeId(employeeId);
+        var existingEmployee = employeeRepository.findById(employeeId);
 
         if(existingEmployee.isEmpty())
             throw new ResourceNotFoundException("Employee", employeeId);
@@ -74,27 +67,53 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Page<Request> getAllByEmployeeId(Long employeeId, Pageable pageable) {
-        return requestRepository.findByEmployeeId(employeeId, pageable);
+    public List<Request> getAllByConfirmationAndEmployeeId(Boolean confirmation, Long employeeId) {
+        var existingEmployee = requestRepository.findByEmployeeId(employeeId);
+
+        if(existingEmployee.isEmpty())
+            throw new ResourceNotFoundException("Employee", employeeId);
+
+        return requestRepository.findByConfirmationAndEmployeeId(confirmation,employeeId);
     }
 
     @Override
-    public Request create(Long clientId, Long employeeId, Long serviceId, Request request) {
+    public List<Request> getAllByPaidAndEmployeeId(Boolean paid, Long employeeId) {
+        var existingEmployee = requestRepository.findByEmployeeId(employeeId);
+
+        if(existingEmployee.isEmpty())
+            throw new ResourceNotFoundException("Employee", employeeId);
+
+        return requestRepository.findByPaidAndEmployeeId(paid,employeeId);
+    }
+
+    @Override
+    public List<Request> getAllByPaidAndClientId(Boolean paid, Long clientId) {
+        var existingClient = clientRepository.findById(clientId);
+
+        if(existingClient.isEmpty())
+            throw new ResourceNotFoundException("Client", clientId);
+
+        return requestRepository.findByPaidAndClientId(paid,clientId);
+    }
+
+    @Override
+    public Request create(Long clientId, Long employeeId, Request request) {
         Set<ConstraintViolation<Request>> violations = validator.validate(request);
 
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        return serviceRepository.findById(serviceId).map(data -> {
-            request.setService(data);
-            return clientRepository.findById(clientId).map(client->{
-                request.setClient(client);
-                return employeeRepository.findById(employeeId).map(employee->{
-                    request.setEmployee(employee);
-                return requestRepository.save(request);
-                }).orElseThrow(() -> new ResourceNotFoundException("Service", serviceId));
+        request.setPrice(0);
+        request.setConfirmation(false);
+        request.setPaid(false);
+
+        return clientRepository.findById(clientId).map(client->{
+            request.setClient(client);
+            return employeeRepository.findById(employeeId).map(employee->{
+                request.setEmployee(employee);
+                    return requestRepository.save(request);
+                }).orElseThrow(() -> new ResourceNotFoundException("Service", employeeId));
             }).orElseThrow(() -> new ResourceNotFoundException("Client", clientId));
-        }).orElseThrow(() -> new ResourceNotFoundException("Employee", employeeId));
     }
 
     @Override
@@ -109,8 +128,11 @@ public class RequestServiceImpl implements RequestService {
                         data.withTitle(request.getTitle())
                                 .withDescription(request.getDescription())
                                 .withUrlToImage(request.getUrlToImage())
-                                .withPaid(request.getPaid()))
-        ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, requestId));
+                                .withPaid(request.getPaid())
+                                .withPrice(request.getPrice())
+                                .withConfirmation(request.getConfirmation())
+                                ))
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, requestId));
     }
 
     @Override

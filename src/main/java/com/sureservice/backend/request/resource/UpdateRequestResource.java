@@ -25,4 +25,8 @@ public class UpdateRequestResource {
     private String urlToImage;
 
     private Boolean paid;
+
+    private int price;
+
+    private Boolean confirmation;
 }
