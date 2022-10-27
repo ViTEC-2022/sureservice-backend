@@ -23,6 +23,4 @@ public class CreateRequestResource {
     @NotNull
     @NotBlank
     private String urlToImage;
-
-    private Boolean paid;
 }

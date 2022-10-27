@@ -12,7 +12,8 @@ import java.util.List;
 @Repository
 public interface RequestRepository extends JpaRepository<Request,Long> {
     List<Request> findByClientId(Long clientId);
-    Page<Request> findByClientId(Long clientId, Pageable pageable);
     List<Request> findByEmployeeId(Long employeeId);
-    Page<Request> findByEmployeeId(Long employeeId, Pageable pageable);
+    List<Request> findByConfirmationAndEmployeeId(Boolean confirmation, Long employeeId);
+    List<Request> findByPaidAndEmployeeId(Boolean paid, Long employeeId);
+    List<Request> findByPaidAndClientId(Boolean paid, Long clientId);
 }

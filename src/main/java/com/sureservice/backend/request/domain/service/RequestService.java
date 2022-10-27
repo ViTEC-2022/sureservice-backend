@@ -11,12 +11,12 @@ public interface RequestService {
     Request getById(Long requestId);
     List<Request> getAll();
     List<Request> getAllByClientId(Long clientId);
-    Page<Request> getAllByClientId(Long clientId, Pageable pageable);
     List<Request> getAllByEmployeeId(Long employeeId);
-    Page<Request> getAllByEmployeeId(Long employeeId, Pageable pageable);
-
+    List<Request> getAllByConfirmationAndEmployeeId(Boolean confirmation, Long employeeId);
+    List<Request> getAllByPaidAndEmployeeId(Boolean paid, Long employeeId);
+    List<Request> getAllByPaidAndClientId(Boolean paid, Long clientId);
     //post, put, delete
-    Request create(Long clientId, Long employeeId, Long serviceId, Request request);
+    Request create(Long clientId, Long employeeId, Request request);
     Request update(Long requestId, Request request);
     ResponseEntity<?> delete(Long requestId);
 }

@@ -40,15 +40,14 @@ public class Request extends AuditModel {
 
     private Boolean paid;
 
+    private int price;
+
+    private Boolean confirmation;
+
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name= "employee_id", nullable = false)
     @JsonIgnore
     private Employee employee;
-
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name= "service_id", nullable = false)
-    @JsonIgnore
-    private Service service;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name= "client_id", nullable = false)
