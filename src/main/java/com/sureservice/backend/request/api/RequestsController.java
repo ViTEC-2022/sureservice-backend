@@ -38,11 +38,23 @@ public class RequestsController {
     public List<RequestResource> getAllRequestByEmployeeId(@PathVariable Long employeeId) {
         return mapper.modelListToResource(requestService.getAllByEmployeeId(employeeId));
     }
+    @GetMapping("confirmation/{confirmation}/{employeeId}")
+    public List<RequestResource> getAllByConfirmationAndEmployeeId(@PathVariable Long employeeId,@PathVariable Boolean confirmation) {
+        return mapper.modelListToResource(requestService.getAllByConfirmationAndEmployeeId(confirmation,employeeId));
+    }
+    @GetMapping("paid/{paid}/employees/{employeeId}")
+    public List<RequestResource> getAllByPaidAndEmployeeId(@PathVariable Long employeeId,@PathVariable Boolean paid) {
+        return mapper.modelListToResource(requestService.getAllByPaidAndEmployeeId(paid,employeeId));
+    }
+    @GetMapping("paid/{paid}/clients/{clientId}")
+    public List<RequestResource> getAllByPaidAndClientId(@PathVariable Long clientId,@PathVariable Boolean paid) {
+        return mapper.modelListToResource(requestService.getAllByPaidAndClientId(paid,clientId));
+    }
 
-    @PostMapping("{clientId}/{employeeId}/{serviceId}")
+    @PostMapping("{clientId}/{employeeId}")
     public RequestResource createRequest(@PathVariable("clientId") Long clientId,@PathVariable("employeeId")
-    Long employeeId,@PathVariable("serviceId") Long serviceId, @RequestBody CreateRequestResource request) {
-        return mapper.toResource(requestService.create(clientId,employeeId,serviceId, mapper.toModel(request)));
+    Long employeeId, @RequestBody CreateRequestResource request) {
+        return mapper.toResource(requestService.create(clientId,employeeId, mapper.toModel(request)));
     }
 
     @PutMapping("{requestId}")
