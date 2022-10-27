@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ServiceRepository extends JpaRepository<Service,Long> {
     Service findByName(String name);
+
+    Boolean existsByName(String name);
 }

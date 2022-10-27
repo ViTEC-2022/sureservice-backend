@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -73,5 +74,30 @@ public class ServiceServiceImpl implements ServiceService {
             serviceRepository.delete(data);
             return ResponseEntity.ok().build();
         }).orElseThrow(()-> new ResourceNotFoundException(ENTITY,serviceId));
+    }
+
+    @Override
+    public void seed() {
+        if(!serviceRepository.existsByName("Electriciy")) {
+            serviceRepository.save((new com.sureservice.backend.service.domain.model.entity.Service())
+                    .withName("Electriciy")
+                    .withUrlToImage("https://i.ibb.co/J29j6BJ/electricianp.jpg")
+                    .withDescription("Lorem ipsum dolor sit amet consectetur adipisicing elit. In vero amet fugiat " +
+                            "repudiandae aut similique odit natus maxime praesentium."));
+        }
+        if(!serviceRepository.existsByName("Plumbing")) {
+            serviceRepository.save((new com.sureservice.backend.service.domain.model.entity.Service())
+                    .withName("Plumbing")
+                    .withUrlToImage("https://i.ibb.co/26xs99Q/plumberp.jpg")
+                    .withDescription("Lorem ipsum dolor sit amet consectetur adipisicing elit. In vero amet fugiat " +
+                            "repudiandae aut similique odit natus maxime praesentium."));
+        }
+        if(!serviceRepository.existsByName("Computer repair")) {
+            serviceRepository.save((new com.sureservice.backend.service.domain.model.entity.Service())
+                    .withName("Computer repair")
+                    .withUrlToImage("https://i.ibb.co/FzfGfGp/computer-repair.jpg")
+                    .withDescription("Lorem ipsum dolor sit amet consectetur adipisicing elit. In vero amet fugiat " +
+                            "repudiandae aut similique odit natus maxime praesentium."));
+        }
     }
 }
