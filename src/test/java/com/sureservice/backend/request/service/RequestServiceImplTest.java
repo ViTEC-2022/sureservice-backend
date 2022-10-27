@@ -6,9 +6,7 @@ import com.sureservice.backend.employee.domain.model.entity.Employee;
 import com.sureservice.backend.employee.domain.persistence.EmployeeRepository;
 import com.sureservice.backend.request.domain.model.entity.Request;
 import com.sureservice.backend.request.domain.persistence.RequestRepository;
-import com.sureservice.backend.service.domain.model.entity.Service;
 import com.sureservice.backend.service.domain.persistence.ServiceRepository;
-import com.sureservice.backend.user.domain.model.entity.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,8 +51,7 @@ public class RequestServiceImplTest {
     public void setUp() {
         Employee employee= new Employee();
         Client client= new Client();
-        Service service = new Service();
-        request= new Request(1L,"Servicido de Carlitos","Servicio","-",false,employee,service,client);
+        request= new Request(1L,"Servicido de Carlitos","Servicio","-",false,100,false,employee,client);
     }
 
     @Test
@@ -86,8 +83,7 @@ public class RequestServiceImplTest {
         Mockito.when(requestRepository.save(Mockito.any(Request.class))).thenReturn(request);
         Mockito.when(employeeRepository.findById(1L)).thenReturn(Optional.of(new Employee()));
         Mockito.when(clientRepository.findById(1L)).thenReturn(Optional.of(new Client()));
-        Mockito.when(serviceRepository.findById(1l)).thenReturn(Optional.of(new Service()));
-        assertNotNull(requestService.create(1L,1L,1L,new Request()));
+        assertNotNull(requestService.create(1L,1L,new Request()));
     }
 
     @Test

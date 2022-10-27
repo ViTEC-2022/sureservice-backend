@@ -37,15 +37,15 @@ public class ServiceMethodsStep {
     @When("enter the information of a new service")
     public void enterTheInformationOfANewService(DataTable dataTable) {
         List<List<String>> rows = dataTable.asLists(String.class);
-        HashMap client = new HashMap();
-        client.put("name", rows.get(1).get(0));
-        client.put("urlToImage", rows.get(1).get(1));
-        client.put("description", rows.get(1).get(2));
+        HashMap service = new HashMap();
+        service.put("name", rows.get(1).get(0));
+        service.put("urlToImage", rows.get(1).get(1));
+        service.put("description", rows.get(1).get(2));
 
         response =
                 given()
                         .contentType("application/json")
-                        .body(client)
+                        .body(service)
                         .when()
                         .post(URL);
 
