@@ -17,4 +17,6 @@ public interface ServiceService {
     Service create(Service service);
     Service update(Long serviceId, Service request);
     ResponseEntity<?> delete(Long serviceId);
+
+    void seed();
 }
