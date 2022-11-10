@@ -67,13 +67,13 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<Request> getAllByDoneAndEmployeeId(Boolean confirmation, Long employeeId) {
+    public List<Request> getAllByDoneAndEmployeeIdAndPaid(Boolean confirmation, Long employeeId, Boolean paid) {
         var existingEmployee = requestRepository.findByEmployeeId(employeeId);
 
         if(existingEmployee.isEmpty())
             throw new ResourceNotFoundException("Employee", employeeId);
 
-        return requestRepository.findByDoneAndEmployeeId(confirmation,employeeId);
+        return requestRepository.findByDoneAndEmployeeIdAndPaid(confirmation,employeeId, paid);
     }
 
     @Override

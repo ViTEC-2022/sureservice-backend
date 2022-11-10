@@ -12,7 +12,7 @@ public interface RequestService {
     List<Request> getAll();
     List<Request> getAllByClientId(Long clientId);
     List<Request> getAllByEmployeeId(Long employeeId);
-    List<Request> getAllByDoneAndEmployeeId(Boolean done, Long employeeId);
+    List<Request> getAllByDoneAndEmployeeIdAndPaid(Boolean done, Long employeeId, Boolean paid);
     List<Request> getAllByPaidAndEmployeeId(Boolean paid, Long employeeId);
     List<Request> getAllByPaidAndClientId(Boolean paid, Long clientId);
     //post, put, delete
