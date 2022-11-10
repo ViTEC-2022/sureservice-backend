@@ -51,7 +51,7 @@ public class RequestServiceImplTest {
     public void setUp() {
         Employee employee= new Employee();
         Client client= new Client();
-        request= new Request(1L,"Servicido de Carlitos","Servicio","-",false,100,false,employee,client);
+        request= new Request(1L,"Servicido de Carlitos","Servicio","-",false,100,false,false,employee,client);
     }
 
     @Test

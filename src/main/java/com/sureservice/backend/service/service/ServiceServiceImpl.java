@@ -78,7 +78,7 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public void seed() {
-        if(!serviceRepository.existsByName("Electriciy")) {
+        if(!serviceRepository.existsByName("Electricity")) {
             serviceRepository.save((new com.sureservice.backend.service.domain.model.entity.Service())
                     .withName("Electriciy")
                     .withUrlToImage("https://i.ibb.co/J29j6BJ/electricianp.jpg")
