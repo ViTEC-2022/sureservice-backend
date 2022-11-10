@@ -13,7 +13,7 @@ import java.util.List;
 public interface RequestRepository extends JpaRepository<Request,Long> {
     List<Request> findByClientId(Long clientId);
     List<Request> findByEmployeeId(Long employeeId);
-    List<Request> findByConfirmationAndEmployeeId(Boolean confirmation, Long employeeId);
+    List<Request> findByDoneAndEmployeeId(Boolean done, Long employeeId);
     List<Request> findByPaidAndEmployeeId(Boolean paid, Long employeeId);
     List<Request> findByPaidAndClientId(Boolean paid, Long clientId);
 }

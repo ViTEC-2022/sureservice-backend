@@ -16,6 +16,7 @@ public class RequestResource {
     private Boolean paid;
     private int price;
     private Boolean confirmation;
+    private Boolean done;
     private ClientResource client;
     private EmployeeResource employee;
 }

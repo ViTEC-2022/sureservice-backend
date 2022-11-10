@@ -44,6 +44,8 @@ public class Request extends AuditModel {
 
     private Boolean confirmation;
 
+    private Boolean done;
+
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name= "employee_id", nullable = false)
     @JsonIgnore

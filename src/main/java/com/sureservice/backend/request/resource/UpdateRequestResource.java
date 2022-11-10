@@ -29,4 +29,6 @@ public class UpdateRequestResource {
     private int price;
 
     private Boolean confirmation;
+
+    private Boolean done;
 }

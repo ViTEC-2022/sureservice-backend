@@ -38,9 +38,9 @@ public class RequestsController {
     public List<RequestResource> getAllRequestByEmployeeId(@PathVariable Long employeeId) {
         return mapper.modelListToResource(requestService.getAllByEmployeeId(employeeId));
     }
-    @GetMapping("confirmation/{confirmation}/{employeeId}")
-    public List<RequestResource> getAllByConfirmationAndEmployeeId(@PathVariable Long employeeId,@PathVariable Boolean confirmation) {
-        return mapper.modelListToResource(requestService.getAllByConfirmationAndEmployeeId(confirmation,employeeId));
+    @GetMapping("done/{done}/{employeeId}")
+    public List<RequestResource> getAllByConfirmationAndEmployeeId(@PathVariable Long employeeId,@PathVariable Boolean done) {
+        return mapper.modelListToResource(requestService.getAllByDoneAndEmployeeId(done,employeeId));
     }
     @GetMapping("paid/{paid}/employees/{employeeId}")
     public List<RequestResource> getAllByPaidAndEmployeeId(@PathVariable Long employeeId,@PathVariable Boolean paid) {

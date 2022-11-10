@@ -67,13 +67,13 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<Request> getAllByConfirmationAndEmployeeId(Boolean confirmation, Long employeeId) {
+    public List<Request> getAllByDoneAndEmployeeId(Boolean confirmation, Long employeeId) {
         var existingEmployee = requestRepository.findByEmployeeId(employeeId);
 
         if(existingEmployee.isEmpty())
             throw new ResourceNotFoundException("Employee", employeeId);
 
-        return requestRepository.findByConfirmationAndEmployeeId(confirmation,employeeId);
+        return requestRepository.findByDoneAndEmployeeId(confirmation,employeeId);
     }
 
     @Override
@@ -106,6 +106,7 @@ public class RequestServiceImpl implements RequestService {
         request.setPrice(0);
         request.setConfirmation(false);
         request.setPaid(false);
+        request.setDone(false);
 
         return clientRepository.findById(clientId).map(client->{
             request.setClient(client);
@@ -131,6 +132,7 @@ public class RequestServiceImpl implements RequestService {
                                 .withPaid(request.getPaid())
                                 .withPrice(request.getPrice())
                                 .withConfirmation(request.getConfirmation())
+                                .withDone(request.getDone())
                                 ))
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, requestId));
     }
