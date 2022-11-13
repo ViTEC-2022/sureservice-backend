@@ -80,7 +80,7 @@ public class ServiceServiceImpl implements ServiceService {
     public void seed() {
         if(!serviceRepository.existsByName("Electricity")) {
             serviceRepository.save((new com.sureservice.backend.service.domain.model.entity.Service())
-                    .withName("Electriciy")
+                    .withName("Electricity")
                     .withUrlToImage("https://i.ibb.co/J29j6BJ/electricianp.jpg")
                     .withDescription("Lorem ipsum dolor sit amet consectetur adipisicing elit. In vero amet fugiat " +
                             "repudiandae aut similique odit natus maxime praesentium."));
