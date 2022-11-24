@@ -155,6 +155,19 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /*            logger.info("Roles: {}", roles);
+
+            User user = new User()
+                    .withEmail(request.getEmail())
+                    .withPassword(encoder.encode(request.getPassword()))
+                    .withRoles(roles);
+
+
+            userRepository.save(user);
+            UserResource resource = mapper.map(user, UserResource.class);
+            RegisterResponse response = new RegisterResponse(resource);
+            return ResponseEntity.ok(response.getResource());*/
+
     /*
     @Override
     public User update(Long userId, User request) {
